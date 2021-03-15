@@ -6,11 +6,15 @@ namespace App\Service;
 
 class ImageLoader
 {
-    public function save($img)
+    public function save($img,string $text,array $rgb, $font)
     {
         $linkImg = 'images/image' . rand().'.jpg';
 
-        imagejpeg($this->resize($img), $linkImg, 100);
+        $tmp = $this->resize($img);
+
+        $this->addText($tmp, $text, $rgb, $font);
+
+        imagejpeg($tmp, $linkImg, 100);
     }
 
     private function resize($img, $width = 200, $height = 200)
@@ -32,8 +36,11 @@ class ImageLoader
         return $tmp;
     }
 
-    private function addText()
-    {
 
+    private function addText($tmp, string $text, array $rgb, $font)
+    {
+        $color = imagecolorallocate($tmp,$rgb[0],$rgb[1],$rgb[2]);
+
+        imagettftext($tmp,34,0,60,100,$color,$font,$text );
     }
 }
