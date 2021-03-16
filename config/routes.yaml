@@ -1,3 +1,6 @@
-index:
+image-view:
     path: /
-    controller: App\Controller\ImageLoadController::homepage
+    controller: App\Controller\ImageLoadController::view
+image-load:
+    path: /load
+    controller: App\Controller\ImageLoadController::load

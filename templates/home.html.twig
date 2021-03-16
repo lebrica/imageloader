@@ -4,19 +4,24 @@
         <div class="container">
             <div class="col-md-12">
                 <div class="row">
-                    <h1>calculate</h1>
-                    <img src="{{ img }}" alt="">
-                    <form name="res" action="" method="post">
+                    <h1>Galery</h1>
+                    <form name="res" action="{{ path('image-load') }}" method="post">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" name="image-url" placeholder="image url">
+                                <input type="text" id="url" class="form-control" name="image-url" placeholder="image url">
                             </div>
                         </div>
-
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary mb-2" name="submit">Add</button>
                         </div>
                     </form>
+                    <div class="container col-md-12">
+                        <div class="row images">
+                        {% for image in images %}
+                            <div class="col-md-2 image"><img src="images/{{ image }}"  alt=""></div>
+                        {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -6,15 +6,20 @@ namespace App\Service;
 
 class ImageLoader
 {
-    public function save($img,string $text,array $rgb, $font)
+    const TYPE_JPEG = 2;
+    const TYPE_PNG = 3;
+
+    public function save($img,string $text,array $rgb, string $font)
     {
-        $linkImg = 'images/image' . rand().'.jpg';
+        $linkImg = 'images/image' .rand(). '.jpg';
 
         $tmp = $this->resize($img);
 
         $this->addText($tmp, $text, $rgb, $font);
 
         imagejpeg($tmp, $linkImg, 100);
+
+        return $linkImg;
     }
 
     private function resize($img, $width = 200, $height = 200)
@@ -25,8 +30,8 @@ class ImageLoader
         $type = $imgInfo['2'];
 
         match ($type) {
-            2 => $image = imageCreateFromJpeg($img),
-            3 => $image = imageCreateFromPng($img),
+            self::TYPE_JPEG => $image = imagecreatefromjpeg($img),
+            self::TYPE_PNG => $image = imagecreatefrompng($img),
         };
 
         $tmp = imageCreateTrueColor($width, $height);
@@ -37,7 +42,7 @@ class ImageLoader
     }
 
 
-    private function addText($tmp, string $text, array $rgb, $font)
+    private function addText($tmp, string $text, array $rgb, string $font)
     {
         $color = imagecolorallocate($tmp,$rgb[0],$rgb[1],$rgb[2]);
 
